@@ -49,7 +49,10 @@
 ## what source location any dependent projects specify.
 # source = "https://github.com/myfork/package.git"
 
-
+[metadata.heroku]
+  root-package = "github.com/fightforthefuture/courier"
+  go-version = "go1.9.2"
+  install = [ "./..." ]
 
 [[dependencies]]
   name = "github.com/aws/aws-sdk-go"
