@@ -50,7 +50,7 @@
 # source = "https://github.com/myfork/package.git"
 
 [metadata.heroku]
-  root-package = "github.com/fightforthefuture/courier"
+  root-package = "github.com/nyaruka/courier"
   go-version = "go1.9.2"
   install = [ "./..." ]
 
