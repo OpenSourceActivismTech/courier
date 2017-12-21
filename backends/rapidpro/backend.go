@@ -370,10 +370,16 @@ func (b *backend) Start() error {
 	}
 
 	// parse and test our redis config
+	log.Info("redis config")
 	redisURL, err := url.Parse(b.config.Redis)
 	if err != nil {
 		return fmt.Errorf("unable to parse Redis URL '%s': %s", b.config.Redis, err)
 	}
+
+	logrus.WithFields(logrus.Fields{
+		"host":  redisURL.Host,
+		"auth":  redisURL.User,
+	}).Info("parsed redis config")
 
 	// create our pool
 	redisPool := &redis.Pool{
@@ -385,6 +391,15 @@ func (b *backend) Start() error {
 			conn, err := redis.Dial("tcp", fmt.Sprintf("%s", redisURL.Host))
 			if err != nil {
 				return nil, err
+			}
+
+			// send auth if required
+			pass, auth_required := redisURL.User.Password()
+			if auth_required {
+				if _, err := conn.Do("AUTH", pass); err != nil {
+			      conn.Close()
+			      return nil, err
+			    }
 			}
 
 			// switch to the right DB
