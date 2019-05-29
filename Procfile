@@ -1,1 +1,1 @@
-web: courier -port $PORT
+web: courier -address=0.0.0.0 -port $PORT
