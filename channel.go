@@ -131,11 +131,15 @@ type Channel interface {
 	Country() string
 	Address() string
 
+	// is this channel for the passed in scheme (and only that scheme)
+	IsScheme(string) bool
+
 	// CallbackDomain returns the domain that should be used for any callbacks the channel registers
 	CallbackDomain(fallbackDomain string) string
 
 	ConfigForKey(key string, defaultValue interface{}) interface{}
 	StringConfigForKey(key string, defaultValue string) string
+	BoolConfigForKey(key string, defaultValue bool) bool
 	IntConfigForKey(key string, defaultValue int) int
 	OrgConfigForKey(key string, defaultValue interface{}) interface{}
 }

@@ -1,3 +1,35 @@
+v2.0.2
+----------
+0;95;0c# Enter any comments for inclusion in the CHANGELOG on this revision below, you can use markdown
+ * ignore viber dlrs as they are sent for both in and out
+
+v2.0.1
+----------
+ * add WhatsApp scheme support for TWIML channels
+
+v2.0.0
+----------
+ * ignore flow server enabled attribute on orgs
+ * stop looking / writing is_test on contact
+
+v1.2.160
+----------
+ * add bearer before auth token for Hormuud
+
+v1.2.159
+----------
+ * add SignalWire handler (https://www.signalwire.com)
+ * refactor twilio->twiml
+ * remove ignore DLR global config, make per channel for TWIML channels
+
+v1.2.158
+----------
+ * add ClickSend channel
+
+v1.2.157
+----------
+ * increase http timeouts to 60 seconds for AfricasTalking, Hormuud token lasts 90 minutes
+
 v1.2.156
 ----------
  * update Portuguese mapping

@@ -117,7 +117,7 @@ func (h *handler) SendMsg(ctx context.Context, msg courier.Msg) (courier.MsgStat
 		req, _ := http.NewRequest(http.MethodPost, sendURL, requestBody)
 		req.Header.Set("Content-Type", "application/json")
 		req.Header.Set("Accept", "application/json")
-		req.Header.Set("Authorization", token)
+		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", token))
 
 		rr, err := utils.MakeHTTPRequest(req)
 		log := courier.NewChannelLogFromRR("Message Sent", msg.Channel(), msg.ID(), rr).WithError("Message Send Error", err)
@@ -189,9 +189,9 @@ func (h *handler) FetchToken(ctx context.Context, channel courier.Channel, msg c
 		return "", rr, errors.Errorf("no access token returned")
 	}
 
-	// we got a token, cache it to redis with a 25 second expiration
+	// we got a token, cache it to redis with a 90 minute expiration
 	conn = h.Backend().RedisPool().Get()
-	_, err = conn.Do("SETEX", fmt.Sprintf("hm_token_%s", channel.UUID()), 25, token)
+	_, err = conn.Do("SETEX", fmt.Sprintf("hm_token_%s", channel.UUID()), 5340, token)
 	conn.Close()
 
 	if err != nil {
